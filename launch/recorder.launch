@@ -1,0 +1,20 @@
+<!--Accumulates incoming Asr Object (ROS) messages during scene demonstration to object configurations. Object configurations (sets) are saved to sqlite database at regular time intervals. @author Pascal Meissner, @version See SVN.-->
+<launch>
+  <node name="recorder" pkg="asr_ism" type="recorder" output="screen">
+
+    <!--Image size of camera providing object estimations used for detecting false positive object detections.-->
+    <param name="cameraInfoTopic" value="/stereo/left/camera_info"/>
+
+    <!--Name of the scene to which demonstration being recorded, belongs.-->
+    <param name="sceneName" value="test"/>
+
+    <!--Load some parameters recorder, trainer and recognizer have in common.-->
+    <rosparam file="$(find asr_ism)/launch/helpers/sqlitedb.yaml"/>
+
+    <!--Load some parameters record and recognizer have in common.-->
+    <rosparam file="$(find asr_ism)/launch/helpers/capturing.yaml"/>
+
+    <!--Load some parameters for visualization.-->
+    <rosparam file="$(find asr_ism)/launch/helpers/visualization.yaml"/>
+  </node>
+</launch>

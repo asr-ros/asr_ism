@@ -1,0 +1,22 @@
+<!--Launches a node to transform the absolute pose of an entire scene relative to a world coordinate frame. -->
+<launch>
+	<node name="recorded_objects_transformer" pkg="asr_ism" type="recorded_objects_transformer" output="screen" required="true">
+		
+		<!-- Source database -->
+		<!-- source = path/source.sqlite -->
+		<param name="source" value=""/>
+		
+		<!-- Target database -->
+		<!-- target = path/target.sqlite -->
+		<param name="target" value=""/>		
+		
+		<!-- Reference object -->
+		<param name="object_type" type="str" value=""/>
+		<param name="object_id" type="str" value=""/>		
+		<!-- [x, y, z] -->
+		<rosparam param="position">[]</rosparam>		
+		<!-- [w, x, y, z] -->
+		<rosparam param="orientation">[]</rosparam>
+		
+	</node>
+</launch>

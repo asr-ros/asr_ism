@@ -1,0 +1,14 @@
+<!--Launches a node to rotate all marker of a ism database-->
+<launch>
+	<node name="marker_rotator" pkg="asr_ism" type="marker_rotator" output="screen" required="true">
+		
+		<!-- Source database -->
+		<!-- source = path/source.sqlite -->
+		<param name="source" value=""/>
+		
+		<!-- Target database -->
+		<!-- target = path/target.sqlite -->
+		<param name="target" value=""/>		
+		
+	</node>
+</launch>

@@ -1,0 +1,19 @@
+<!--Launches a node to merge ism databases-->
+<launch>
+	<node name="data_merger" pkg="asr_ism" type="data_merger" output="screen" required="true">
+		
+		<!-- Target database into which we merge -->
+		<!-- target = path/target.sqlite -->
+		<param name="target" value=""/>
+		
+		<!-- List of source databases which we want to merge into target database -->
+		<!-- <rosparam param="sources">[source1, source2, ..., sourceN]</rosparam> -->
+		<!-- source = path/source.sqlite -->
+		<rosparam param="sources">[]</rosparam>
+		
+		<!-- Merge Options (Merge only records, only models or both) -->
+		<param name="merge_records" value="true"/>
+		<param name="merge_models" value="true"/>
+		
+	</node>
+</launch>

@@ -1,0 +1,37 @@
+<!--Launches recognition system that processes incoming AsrObject messages in order to recognize scenes represented in an sqlite database. Visualizes recognition result via RViz. @author Pascal Meissner, @version See SVN.-->
+<launch>
+  <node name="recognizer" pkg="asr_ism" type="recognizer" output="screen">
+
+    <!-- Object id information in recognition result is ignored.-->
+    <param name="ignoreIds" value="false"/>
+    <!-- Object type information in recognition result is ignored.-->
+    <param name="ignoreTypes" value="false"/>
+
+    <!--Load some parameters recorder, trainer, optedTrainer and recognizer have in common.-->
+    <rosparam file="$(find asr_ism)/launch/helpers/sqlitedb.yaml"/>
+
+    <!--Load some parameters trainer, optedTrainer and recognizer have in common.-->
+    <rosparam file="$(find asr_ism)/launch/helpers/visualization.yaml"/>
+
+    <!--Load some parameters record and recognizer have in common.-->
+    <rosparam file="$(find asr_ism)/launch/helpers/capturing.yaml"/>
+    
+    <!--Load some parameters record and recognizer have in common.-->
+    <rosparam file="$(find asr_ism)/launch/helpers/sensitivity.yaml"/>
+    
+     <!-- The maximum number of results per pattern which you want to receive from the recognizer. -->
+    <param name="maxNumberOfResultsPerPattern" value="1"/>
+            
+    <!-- Which rater to rate/score an recognition result should be used.
+	0 = SimpleRater: conisders only if certain conditions are met and rate it with 1 if conditions are met else with 0. 
+	1 = APORater: consider appearance, position and orientation for the rating. The score/rate is in [0,1]. -->
+    <param name="raterType" value="0"/>
+
+    <!-- Whether to store input object configurations as xml files on disk or not. Disabled in active recognition mode.-->
+    <param name="enableStoringConfigToXml" value="false"/>
+    
+    <!--Path to the folder where the configuration xml files should be stored. If left empty, no configuration files are created.-->
+    <param name="configurationFolderPath" value=""/>
+    
+  </node>
+</launch>

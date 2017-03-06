@@ -1,0 +1,44 @@
+<package>
+  <name>asr_ism</name>
+  <version>1.0.0</version>
+  <description> 
+    This package contains nodes to provide tools for scene recognition based on implicit shape models (ISM). A short outline of the functionalities provided by the tools are:
+      1. Recording of scenes
+      2. Training of an ISM (Implicit shape model)
+      3. Recognition of scenes
+      4. Visualization of ISM data 
+	  etc.
+  </description>
+  <author>Borella Jocelyn, Hanselmann Fabian, Heller Florian, Heizmann Heinrich, Kübler Marcel, Mehlhaus Jonas, Meißner Pascal, Qattan Mohamad, Reckling Reno, Stroh Daniel</author>
+  <maintainer email="asr-ros@lists.kit.edu">Meißner Pascal</maintainer>
+  <license>BSD</license>
+  
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>asr_msgs</build_depend>
+  <build_depend>asr_lib_ism</build_depend>
+  <build_depend>visualization_msgs</build_depend>
+  <build_depend>roslib</build_depend>
+  <build_depend>asr_ism_visualizations</build_depend>
+  <build_depend>dynamic_reconfigure</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>asr_lib_pose_prediction_ism</build_depend>
+  <build_depend>asr_object_database</build_depend>
+  <build_depend>asr_rapidxml</build_depend>
+
+  <run_depend>rospy</run_depend>
+  <run_depend>dynamic_reconfigure</run_depend>
+  <run_depend>asr_lib_ism</run_depend>
+  <run_depend>asr_ism_visualizations</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>tf</run_depend>
+  <run_depend>asr_msgs</run_depend>
+  <run_depend>visualization_msgs</run_depend>
+  <run_depend>roslib</run_depend>
+  <run_depend>asr_lib_pose_prediction_ism</run_depend>
+  <run_depend>asr_object_database</run_depend>
+  <run_depend>asr_rapidxml</run_depend>
+
+</package>
+

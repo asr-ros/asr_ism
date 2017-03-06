@@ -1,0 +1,23 @@
+<!--Launches a node to rotate coordinate systems of rotation invariant objects in a given database, so that an object has a fixed orientation to the map frame or to a reference object. -->
+<launch>
+	<node name="rotation_invariant_objects_rotator" pkg="asr_ism" type="rotation_invariant_objects_rotator" output="screen" required="true">
+		
+		<!-- Source database -->
+		<!-- source = path/source.sqlite -->
+		<param name="source" value=""/>
+		
+		<!-- Target database -->
+		<!-- target = path/target.sqlite -->
+		<param name="target" value=""/>		
+		
+		<!-- Reference object -->
+		<param name="object_type" type="str" value=""/>
+		<param name="object_id" type="str" value=""/>	
+		
+		
+		<!-- List of rotation invariant object-types, which we want to normalize. -->
+		<!-- <rosparam param="rotation_invariant_types">[type1, type2, ..., typeN]</rosparam> -->
+		<rosparam param="rotation_invariant_types">[]</rosparam>
+		
+	</node>
+</launch>

@@ -1,0 +1,17 @@
+<!--Launches a node to interpolate poses between objects in a ism database-->
+<launch>
+	<node name="pose_interpolator" pkg="asr_ism" type="pose_interpolator" output="screen" required="true">
+		
+		<!-- Source database -->
+		<!-- source = path/source.sqlite -->
+		<param name="source" value=""/>
+		
+		<!-- Target database -->
+		<!-- target = path/target.sqlite -->
+		<param name="target" value=""/>	
+		
+		<!-- Number of interpolated poses between two object poses -->
+		<param name="step_number" value=""/>	
+		
+	</node>
+</launch>

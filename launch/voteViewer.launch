@@ -1,0 +1,18 @@
+<!--Launches a node to visualize scene model in dbfile-->
+<launch>
+  <node name="voteViewer" pkg="asr_ism" type="voteViewer" output="screen">
+
+	<!-- Name of the scene which should be visualized -->
+	<param name="sceneName" type="str" value=""/>
+    
+    <!--Load db file and base frame for coordinate transformations.-->
+    <rosparam file="$(find asr_ism)/launch/helpers/sqlitedb.yaml"/>
+    
+    <!--Load visualization topic.-->
+    <rosparam file="$(find asr_ism)/launch/helpers/visualization.yaml"/>
+    
+    <!--The path to a previously created configuration. Only use this if you want to reload that configuration-->
+    <param name="config_file_path" value=""/>
+    
+  </node>
+</launch>

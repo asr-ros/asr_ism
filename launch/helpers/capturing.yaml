@@ -1,0 +1,39 @@
+#Parameters related to gathering estimations captured by object localizers. @author Pascal Meissner, @version See SVN.
+
+#Where does object recognizer input come from?
+objectTopic: /stereo/objects
+#Duration of asynchronous recognizer result buffering.
+capture_interval: 3
+#Maximum number of incoming Asr object messages that are buffered by subscriber. Otherwise object callback blocks all others. To be solved by multithreading.
+queueSizePbdObjectCallback: 100
+#How many threads should be used to process incoming asr object messages. 
+object_input_thread_count: 4
+
+#Whether to use confidence from object recognition or just assume perfect object recognition and use confidence 1.0 for every recognized object 
+#use_confidence_from_msg: true
+
+## Options for rotation invariant objects:
+#Whether the object orientation should be rotated to the baseFrame or to Object.
+# mode 0: deactivated, mode 1: rotationFrame, mode 2: rotationObject
+enableRotationMode: 1
+# Defines the rotation frame. The rotation only takes place if baseFrame == rotationFrame.
+rotationFrame: /map
+# Defines the rotation object.
+#rotationObjectType:
+# Please write number in quotation marks to e.g. preserve leading zeros.
+#rotationObjectId: ""
+
+## Additional parameters for scene configurator
+#The rate (Hz) in which the keyboard should be polled for keyboard input (Used for keyboard commands during runtime).
+#keyboard_poll_rate: 10
+#Where to publish visualization of scene configuration from scene configurator. 
+#input_objects_visualization_topic: /input_objects_scene_configurator_viz
+
+
+## Neightborhood evaluation: if the poses of two estimations with the same object-type deviate over a certain thresholds, then we consider them as two different objects. 
+#Whether to use neightborhood evaluation or not.
+enableNeighborhoodEvaluation: false
+#Maximal angle deviation accepted between two estimations of the same object.
+angleNeighbourThreshold: 30
+#Maximal distance accepted between two estimations of the same object.
+distanceNeighbourThreshold: 0.05

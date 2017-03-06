@@ -1,0 +1,14 @@
+<launch>
+  <node name="recordGen" pkg="asr_ism" type="recordGen" output="screen">
+    <!-- Destination db -->
+    <param name="dbfilename" value=""/>
+    <!-- Source xml -->
+    <param name="xml" value=""/>
+    <!-- Filter RefPoints via VoxelGrid Output -->
+    <param name="vgOut" value=""/>
+    <param name="detailedBinNS" value="true"/>
+    <param name="doPublish" value="true"/>
+    <param name="bin_size" value="0.05"/>
+  </node>
+</launch>
+

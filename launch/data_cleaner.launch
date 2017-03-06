@@ -1,0 +1,15 @@
+<!--Launches a node to clean data from ism databases-->
+<launch>
+	<node name="data_cleaner" pkg="asr_ism" type="data_cleaner" output="screen" required="true">
+		
+		<!-- List of databases for which we want to clean the data from. -->
+		<!-- <rosparam param="databases">[database1, database2, ..., databaseN]</rosparam> -->
+		<!-- databases = path/database.sqlite -->
+		<rosparam param="databases">[]</rosparam>
+		
+		<!-- Clean Options (Clean only records, only models or both) -->
+		<param name="clean_records" value="false"/>
+		<param name="clean_models" value="false"/>
+		
+	</node>
+</launch>

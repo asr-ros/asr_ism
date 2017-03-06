@@ -1,0 +1,15 @@
+<!--Launches a node to visualize scene model in dbfile-->
+<launch>
+  <node name="modelViewer" pkg="asr_ism" type="modelViewer" output="screen">
+
+	<!-- Name of the scene which should be visualized -->
+	<param name="sceneName" type="str" value=""/>
+  
+    <!--Load db file and base frame for coordinate transformations.-->
+    <rosparam file="$(find asr_ism)/launch/helpers/sqlitedb.yaml"/>
+    
+    <!--Load visualization topic.-->
+    <rosparam file="$(find asr_ism)/launch/helpers/visualization.yaml"/>
+    
+  </node>
+</launch>

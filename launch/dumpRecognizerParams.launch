@@ -1,0 +1,8 @@
+<!--Dumps current dynamic reconfiguration to helpers/params.yaml so they can be loaded on next startup.-->
+<launch>
+  <node name="dynamic_reconfigure_dump" pkg="dynamic_reconfigure" type="dynparam" args="dump /recognizer $(find asr_ism)/launch/helpers/dynreconfigure/recognizer.yaml" />
+  <node name="dynamic_reconfigure_dump1" pkg="dynamic_reconfigure" type="dynparam" args="dump /recognizer/result_visualizer $(find asr_ism)/launch/helpers/dynreconfigure/result_visualizer.yaml" />
+  <node name="dynamic_reconfigure_dump2" pkg="dynamic_reconfigure" type="dynparam" args="dump /recognizer/valid_position_visualizer $(find asr_ism)/launch/helpers/dynreconfigure/valid_position_visualizer.yaml" />
+  <node name="dynamic_reconfigure_dump3" pkg="dynamic_reconfigure" type="dynparam" args="dump /recognizer/voting_visualizer $(find asr_ism)/launch/helpers/dynreconfigure/voting_visualizer.yaml" />
+  <node name="dynamic_reconfigure_dump4" pkg="dynamic_reconfigure" type="dynparam" args="dump /recognizer/pose_prediction_visualizer $(find asr_ism)/launch/helpers/dynreconfigure/pose_prediction_visualizer.yaml" />
+</launch>
