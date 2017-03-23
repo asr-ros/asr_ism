@@ -113,15 +113,15 @@ class Recognizer
             // init viz
             visualization_publisher_ = nh_.advertise<visualization_msgs::MarkerArray>(visualization_topic, 100);
             recogition_result_visualizer_ = VIZ::ISMResultVisualizerRVIZPtr(new VIZ::ISMResultVisualizerRVIZ(visualization_publisher_, ros::NodeHandle(nh_.getNamespace() + "/result_visualizer/")));
-            //voting_space_visualizer_ = VIZ::ISMVotingVisualizerRVIZPtr(new VIZ::ISMVotingVisualizerRVIZ(visualization_publisher_, bin_size_, ros::NodeHandle(nh_.getNamespace() + "/voting_visualizer/")));
+            voting_space_visualizer_ = VIZ::ISMVotingVisualizerRVIZPtr(new VIZ::ISMVotingVisualizerRVIZ(visualization_publisher_, bin_size_, ros::NodeHandle(nh_.getNamespace() + "/voting_visualizer/")));
             object_model_visualizer_ = new VIZ::ObjectModelVisualizerRVIZ(visualization_publisher_, base_frame_, "", 0);
 
             // init pose prediction stuff
             ISM::TableHelperPtr table_helper = ISM::TableHelperPtr(new ISM::TableHelper(db_filename_));
             object_type_to_ressource_path_map_ = table_helper->getRessourcePaths();
             pose_predictor_ = new pose_prediction_ism::ShortestPath(db_filename_);
-            //ism_pose_prediction_visualizer_ = VIZ::ISMPosePredictionVisualizerRVIZPtr(new VIZ::ISMPosePredictionVisualizerRVIZ(visualization_publisher_, bin_size_, max_projection_angle_deviation_, object_type_to_ressource_path_map_,
-            //                                                                          ros::NodeHandle(nh_.getNamespace() + "/pose_prediction_visualizer/"), ros::NodeHandle(nh_.getNamespace() + "/valid_position_visualizer/")));
+            ism_pose_prediction_visualizer_ = VIZ::ISMPosePredictionVisualizerRVIZPtr(new VIZ::ISMPosePredictionVisualizerRVIZ(visualization_publisher_, bin_size_, max_projection_angle_deviation_, object_type_to_ressource_path_map_,
+                                                                                      ros::NodeHandle(nh_.getNamespace() + "/pose_prediction_visualizer/"), ros::NodeHandle(nh_.getNamespace() + "/valid_position_visualizer/")));
 
             // set-up dynamic reconfigure
             dynamic_reconfigure::Server<asr_ism::recognizerConfig>::CallbackType reconf_callback = boost::bind(&Recognizer::dynamicReconfCallback, this, _1, _2);
@@ -573,7 +573,7 @@ class Recognizer
                 fos.push_back(pdbO);
             }
 
-            if(results_buffer_[scene_counter_]->confidence == 1.f)
+            if(std::fabs(results_buffer_[scene_counter_]->confidence - 1.f) < 0.00001f)
             {
                 ROS_INFO("Scene complete, nothing to predict.");
                 return;
@@ -595,6 +595,9 @@ class Recognizer
         void dynamicReconfCallback(asr_ism::recognizerConfig &config, uint32_t level)
         {
             ROS_DEBUG_STREAM("Parameters updated.");
+
+            voting_space_visualizer_.reset();
+            ism_pose_prediction_visualizer_.reset();
 
             voting_space_visualizer_ = VIZ::ISMVotingVisualizerRVIZPtr(new VIZ::ISMVotingVisualizerRVIZ(visualization_publisher_, bin_size_, ros::NodeHandle(nh_.getNamespace() + "/voting_visualizer/")));
             ism_pose_prediction_visualizer_ = VIZ::ISMPosePredictionVisualizerRVIZPtr(new VIZ::ISMPosePredictionVisualizerRVIZ(visualization_publisher_, bin_size_, max_projection_angle_deviation_, object_type_to_ressource_path_map_,
