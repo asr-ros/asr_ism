@@ -119,6 +119,7 @@ class Recognizer
             // init pose prediction stuff
             ISM::TableHelperPtr table_helper = ISM::TableHelperPtr(new ISM::TableHelper(db_filename_));
             object_type_to_ressource_path_map_ = table_helper->getRessourcePaths();
+
             pose_predictor_ = new pose_prediction_ism::ShortestPath(db_filename_);
             ism_pose_prediction_visualizer_ = VIZ::ISMPosePredictionVisualizerRVIZPtr(new VIZ::ISMPosePredictionVisualizerRVIZ(visualization_publisher_, bin_size_, max_projection_angle_deviation_, object_type_to_ressource_path_map_,
                                                                                       ros::NodeHandle(nh_.getNamespace() + "/pose_prediction_visualizer/"), ros::NodeHandle(nh_.getNamespace() + "/valid_position_visualizer/")));
@@ -344,7 +345,7 @@ class Recognizer
         int scene_counter_ = 0;
         bool valid_position_vis_ = false;
         double pose_prediction_sampel_faktor_ = 0.5;
-
+        size_t number_of_objects_ = 0;
 
 
         /**
@@ -564,16 +565,21 @@ class Recognizer
                 return;
             }
 
+            ISM::TableHelperPtr table_helper = ISM::TableHelperPtr(new ISM::TableHelper(db_filename_));
+            std::set<std::string> all_objects_in_pattern = table_helper->getObjectsInPattern(results_buffer_[scene_counter_]->patternName);
+
             pose_prediction_ism::FoundObjects fos;
             for(std::size_t i = 0; i < object_set_buffer_->objects.size(); i++)
             {
                 asr_msgs::AsrObject pdbO;
                 pdbO.type = object_set_buffer_->objects[i]->type;
                 pdbO.identifier = object_set_buffer_->objects[i]->observedId;
+                all_objects_in_pattern.erase(object_set_buffer_->objects[i]->type + object_set_buffer_->objects[i]->observedId);
                 fos.push_back(pdbO);
             }
 
-            if(std::fabs(results_buffer_[scene_counter_]->confidence - 1.f) < 0.00001f)
+            ROS_INFO_STREAM(results_buffer_[scene_counter_]->patternName);
+            if(all_objects_in_pattern.size() == 0)
             {
                 ROS_INFO("Scene complete, nothing to predict.");
                 return;
@@ -596,8 +602,8 @@ class Recognizer
         {
             ROS_DEBUG_STREAM("Parameters updated.");
 
-            voting_space_visualizer_.reset();
-            ism_pose_prediction_visualizer_.reset();
+            voting_space_visualizer_->releaseCallback();
+            ism_pose_prediction_visualizer_->releaseCallback();
 
             voting_space_visualizer_ = VIZ::ISMVotingVisualizerRVIZPtr(new VIZ::ISMVotingVisualizerRVIZ(visualization_publisher_, bin_size_, ros::NodeHandle(nh_.getNamespace() + "/voting_visualizer/")));
             ism_pose_prediction_visualizer_ = VIZ::ISMPosePredictionVisualizerRVIZPtr(new VIZ::ISMPosePredictionVisualizerRVIZ(visualization_publisher_, bin_size_, max_projection_angle_deviation_, object_type_to_ressource_path_map_,
