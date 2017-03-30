@@ -571,11 +571,11 @@ class Recognizer
             pose_prediction_ism::FoundObjects fos;
             for(std::size_t i = 0; i < object_set_buffer_->objects.size(); i++)
             {
-                asr_msgs::AsrObject pdbO;
-                pdbO.type = object_set_buffer_->objects[i]->type;
-                pdbO.identifier = object_set_buffer_->objects[i]->observedId;
+                asr_msgs::AsrObject asr_o;
+                asr_o.type = object_set_buffer_->objects[i]->type;
+                asr_o.identifier = object_set_buffer_->objects[i]->observedId;
                 all_objects_in_pattern.erase(object_set_buffer_->objects[i]->type + object_set_buffer_->objects[i]->observedId);
-                fos.push_back(pdbO);
+                fos.push_back(asr_o);
             }
 
             ROS_INFO_STREAM(results_buffer_[scene_counter_]->patternName);
