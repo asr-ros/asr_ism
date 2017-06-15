@@ -130,7 +130,7 @@ TestResult testModel(TestSpec testSpec, string modelDB)
   vector<shared_ptr<thread> > threads;
   //Recognizer is not thread safe
   const bool onlyPerfectResults = false;
-  RecognizerPtr prototype(new Recognizer(modelDB, 0.03, 10, onlyPerfectResults));
+  RecognizerPtr prototype(new Recognizer(modelDB, 0.03, 10, false));
   for (unsigned t_id = 0; t_id < AMOUNT_OF_THREADS; ++t_id)
     {
       Worker* worker = new Worker();
