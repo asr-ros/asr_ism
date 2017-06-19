@@ -137,11 +137,11 @@ private:
         }
         ROS_INFO_STREAM("baseFrame: " << baseFrame);
 
-        if (!nh.getParam("visualizationTopic", visualizationTopic))
+        if (!nh.getParam("visualization_topic", visualizationTopic))
         {
             visualizationTopic = "";
         }
-        ROS_INFO_STREAM("visualizationTopic: " << visualizationTopic);
+        ROS_INFO_STREAM("visualization_topic: " << visualizationTopic);
 
         if (!nh.getParam("markerLifetime", markerLifetime))
         {
@@ -191,8 +191,6 @@ private:
 
             if (i == objectCounter)
             {
-
-
                 for (unsigned int j = 0; j < pair.second.size(); ++j) {
 
                     if (j == poseCounter)
@@ -243,9 +241,19 @@ private:
                 if (marked)
                 {
                     markerArray.markers.push_back(VIZ::VizHelperRVIZ::createMeshMarker(pair.second[markedPosePosition], baseFrame, markerNamespace, markerCount, MARKED, markerLifetime, path));
-                } else {
-
-                    std_msgs::ColorRGBA color = VIZ::VizHelperRVIZ::createColorRGBA(ISM::getColorOfObject(pair.first->objects.front()));
+                }
+                else
+                {
+                    ISM::ObjectPtr obj;
+                    for (ISM::ObjectPtr o : pair.first->objects)
+                    {
+                        if (o != nullptr)
+                        {
+                            obj = o;
+                            break;
+                        }
+                    }
+                    std_msgs::ColorRGBA color = VIZ::VizHelperRVIZ::createColorRGBA(ISM::getColorOfObject(obj));
                     markerArray.markers.push_back(VIZ::VizHelperRVIZ::createMeshMarker(pair.second[0], baseFrame, markerNamespace, markerCount, color, markerLifetime, path));
                 }
                 markerCount++;
