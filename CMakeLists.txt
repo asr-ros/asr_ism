@@ -9,6 +9,9 @@ endif(COMMAND cmake_policy)
 #set(CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS}")
 add_definitions(-Wall -std=gnu++0x -ggdb)
 
+find_package(Boost REQUIRED)
+find_package(Eigen3 REQUIRED)
+
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   tf
@@ -31,6 +34,7 @@ generate_dynamic_reconfigure_options(
 include_directories(
 	include
 	${catkin_INCLUDE_DIRS}
+	${Boost_INCLUDE_DIRS}
 )
 
 include_directories(${PCL_INCLUDE_DIRS})
@@ -40,7 +44,7 @@ include_directories(${PCL_IO_INCLUDE_DIR})
 # Added libism as include_dir to provide the Recognizer.hpp to another package.
 catkin_package(    
     CATKIN_DEPENDS roscpp tf asr_msgs visualization_msgs roslib asr_lib_ism asr_ism_visualizations asr_lib_pose_prediction_ism
-    DEPENDS Boost asr_rapidxml eigen
+    DEPENDS Boost asr_rapidxml EIGEN3
 )
 
 add_executable(recordViewer src/recordViewer.cpp)
