@@ -1,7 +1,5 @@
 <!--Launches a publisher which publishes AsrObject messages in order to to "feed" the recognizer with data, even if no cameras are used. Visualizes pubished data via RViz. This file wip. @author Fabian Hanselmann, @version See SVN.-->
 <launch>
-  <!-- Don't forget to pass a map.yaml to the map_server -->
-  <node name="map_server" pkg="map_server" type="map_server" args="" required="true"/> -->
   
   <node name="object_configuration_generator" pkg="asr_ism" type="object_configuration_generator" output="screen">
 
@@ -15,6 +13,7 @@
     <param name="object_configuration_visualization_topic" value="object_configuration"/>
     
     <!--Which pattern should be loaded-->
+    <!--e.g. [pattern1, pattern2, ..., patternN]
     <rosparam param = "object_configuration_pattern_names">[]</rosparam>
     
     <!--Where the output xml file should be written-->

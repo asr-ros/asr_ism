@@ -439,10 +439,10 @@ private:
     {
         std::stringstream commands;
         commands << "Possible commands:\n"
-                 << "\tpress \"w\"\tchoose next object for pose prediction\n"
-                 << "\tpress \"s\"\tchoose previous object for pose prediction\n"
-                 << "\tpress \"a\"\tchoose previous object pose for pose prediction\n"
-                 << "\tpress \"d\"\tchoose next object pose for pose prediction\n"
+                 << "\tpress \"w\"\tchoose next object for pose configuration\n"
+                 << "\tpress \"s\"\tchoose previous object for pose configuration\n"
+                 << "\tpress \"a\"\tchoose previous object pose for pose configuration\n"
+                 << "\tpress \"d\"\tchoose next object pose for pose configuration\n"
                  << "\tpress \"m\"\tmark selected pose\n"
                  << "\tpress \"o\"\tsave marked (red) object poses to file\n"
                  << "\tpress \"r\"\trestore selected pose to the original pose\n"
@@ -592,7 +592,7 @@ private:
                 try
                 {
                     ISM::PosePtr pose = trackAndPoses[objectCounter].second[poseCounter];
-                    double offset = boost::lexical_cast<double>(value);
+                    double offset = value.empty() ? 0.0 : boost::lexical_cast<double>(value);
                     switch (editCounter)
                     {
                     case 0 :
