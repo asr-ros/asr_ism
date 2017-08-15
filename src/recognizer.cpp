@@ -100,7 +100,7 @@ class Recognizer
 
             if (db_filename_ != "")
             {
-                ism_recognizer_ = ISM::RecognizerPtr(new ISM::Recognizer(db_filename_, bin_size_, max_projection_angle_deviation_, true, rater_type_));
+                ism_recognizer_ = ISM::RecognizerPtr(new ISM::Recognizer(db_filename_, bin_size_, max_projection_angle_deviation_, false, rater_type_));
             }
             else
             {
