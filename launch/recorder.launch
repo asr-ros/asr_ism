@@ -2,9 +2,6 @@
 <launch>
   <node name="recorder" pkg="asr_ism" type="recorder" output="screen">
 
-    <!--Image size of camera providing object estimations used for detecting false positive object detections.-->
-    <param name="cameraInfoTopic" value="/stereo/left/camera_info"/>
-
     <!--Name of the scene to which demonstration being recorded, belongs.-->
     <param name="sceneName" value="test"/>
 

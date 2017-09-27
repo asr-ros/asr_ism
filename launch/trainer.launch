@@ -3,17 +3,17 @@
   <node name="trainer" pkg="asr_ism" type="trainer" output="screen">
 
     <!--Decides whether an star topology resp. one ism is learnt on entire recorded object configurations or we subdivide configurations based on hierarchical clustering and therefore learn an entire tree of ism.-->
-    <param name="useClustering" value="false"/>
+    <param name="useClustering" value="true"/>
     <param name="dropOldModelTables" value="true"/>
 
-    <!--Use manual defined heuristics defined in manualHeuristicListFile-->
-    <param name="useManualDefHeuristic" value="false"/>
+    <!--Use manual defined cluster defined in clusterListFile-->
+    <param name="useUserDefCluster" value="false"/>
 
-    <!-- File with manual heuristics. Each line represents a cluster as follows:
+    <!-- File with user defined clusters. Each line represents a cluster as follows:
 	 Obj0,Obj1;0
          0,Obj2;1
          The last number in each line represents the cluster(sub-pattern) and can be reused for further clustering -->
-    <param name="manualHeuristicListFile" value=""/>
+    <param name="clusterListFile" value=""/>
 
     <!--File to force references for a (sub-)pattern, each per line f.e.:
          pattern0_sub0,Obj0
@@ -27,14 +27,6 @@
 
     <!--Load some parameters recorder, trainer and recognizer have in common.-->
     <rosparam file="$(find asr_ism)/launch/helpers/sqlitedb.yaml"/>
-
-    <!--Ros topic on which position trajectories of trained object poses are visualized as well as poses of objects relative to their (sub)scene reference along these trajectories.-->
-    <!--param name="visualization_topic" value="/visualization_marker"-->
-
-    <!--Sqlite DB, containing recorded object configurations that are transformed to model object configurations in an ism tree during ism learning in this node.-->
-    <!--param name="dbfilename" value="/data/asr_recordings/record.sqlite.scene_reel"-->
-    <!--Frame in which 'recorded' input is given. Needed for visualization purposes.-->
-    <!--param name="baseFrame" value="/PTU"-->
 
   </node>
 </launch>

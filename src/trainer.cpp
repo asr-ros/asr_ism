@@ -66,14 +66,14 @@ public:
     mNh("~") {
 
     std::string dbfilename;
-    bool useManualDefHeuristic;
+    bool useUserDefCluster;
     bool usePredefinedRefs;
     path preDefRefListFile;
-    path manualDefHeuristicListFile;
+    path clusterListFile;
     bool dropOldModelTables;
     
     //Extract cli parameters of ros node for being used in this program.
-    getNodeParameters(dbfilename, useManualDefHeuristic, manualDefHeuristicListFile, dropOldModelTables,
+    getNodeParameters(dbfilename, useUserDefCluster, clusterListFile, dropOldModelTables,
     		usePredefinedRefs, preDefRefListFile);
 
     ISM::DataCollector::setCollect(true);
@@ -83,9 +83,9 @@ public:
       mTrainer = boost::shared_ptr<ISM::Trainer>(new ISM::Trainer());
     }
 
-    if(useManualDefHeuristic)
+    if(useUserDefCluster)
     {
-    	std::ifstream manualList(manualDefHeuristicListFile.string());
+        std::ifstream manualList(clusterListFile.string());
     	std::string line;
     	std::vector<std::pair<std::vector<ISM::ManuallyDefPseudoHeuristic::ClusterObject>,
 		    uint16_t>> cluster;
@@ -150,7 +150,7 @@ public:
    *
    * @param pDbfilename Contains the ism table (i.e. scene models) as well as the table with the training data.   
    */
-  void getNodeParameters(std::string& pDbfilename, bool& useManualDefHeuristic, path& manualDefHeuristicListFile,
+  void getNodeParameters(std::string& pDbfilename, bool& useUserDefCluster, path& clusterListFile,
 		  bool& dropOldModelTables, bool& usePredefinedRefs, path& preDefRefListFile) {
 
     if (!mNh.getParam("dbfilename", pDbfilename)) {
@@ -183,27 +183,27 @@ public:
     }
     ROS_INFO_STREAM("maxAngleDeviation: " << mMaxAngleDeviation);
 
-    if (!mNh.getParam("useManualDefHeuristic", useManualDefHeuristic)) {
-    	useManualDefHeuristic = false;
+    if (!mNh.getParam("useUserDefCluster", useUserDefCluster)) {
+        useUserDefCluster = false;
     }
-    ROS_INFO_STREAM("useManualDefHeuristic: " << useManualDefHeuristic);
-    if(useManualDefHeuristic)
+    ROS_INFO_STREAM("useUserDefCluster: " << useUserDefCluster);
+    if(useUserDefCluster)
     {
         std::string temp;
         if (!mNh.getParam("manualHeuristicListFile", temp)) {
           temp = "";
         } else
         {
-                manualDefHeuristicListFile = temp;
+                clusterListFile = temp;
         }
-        if(!boost::filesystem::is_regular_file(manualDefHeuristicListFile))
+        if(!boost::filesystem::is_regular_file(clusterListFile))
         {
                 std::stringstream ss;
-                ss << manualDefHeuristicListFile << " does not exist or is not a file";
+                ss << clusterListFile << " does not exist or is not a file";
                 ROS_ERROR_STREAM(ss.str());
                 throw std::runtime_error(ss.str());
         }
-        ROS_INFO_STREAM("manualHeuristicListFile: " << manualDefHeuristicListFile);
+        ROS_INFO_STREAM("clusterListFile: " << clusterListFile);
     }
 
     std::string temp;

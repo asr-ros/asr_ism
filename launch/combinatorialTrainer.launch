@@ -14,11 +14,11 @@
     <!--Load some parameters combinatorialTrainer and recognizer have in common.-->
     <rosparam file="$(find asr_ism)/launch/helpers/sensitivity.yaml"/>
     
-    <!-- This parameter influnces the neighbourhood of a topology T. If swapRelations == true, then topologies that can be created by swaping one relation that is part of that topology T with one that is not are considered neighbours of T.
+    <!-- This parameter influences the neighbourhood of a topology T. If swapRelations == true, then topologies that can be created by swaping one relation that is part of that topology T with one that is not are considered neighbours of T.
     This parameter only effects TopologyGeneratorPaper. -->
     <param name="swapRelations" value="true"/>
 
-    <!-- This parameter influnces the neighbourhood of a topology T. If removeRelations == true, then topologies that can be created by removing one relation from topology T are considered neighbours of T.
+    <!-- This parameter influences the neighbourhood of a topology T. If removeRelations == true, then topologies that can be created by removing one relation from topology T are considered neighbours of T.
     This parameter only effects TopologyGeneratorPaper. -->
     <param name="removeRelations" value="true"/>
 
@@ -40,10 +40,10 @@
     <!--path to where the invalid testsets will be stored. If left empty, the testsets are not stored-->
     <param name="storeInvalidTestSetsTo" value=""/>
 
-    <!--Wether to write the ism of the fully meshed topology to a sql database  or not-->
+    <!--Whether to write the ism of the fully meshed topology to a sql database  or not-->
     <param name="storeFullyMeshedISM" value="false"/>
 
-    <!--Wether to write the ism of the selected start topology to a sql database or not-->
+    <!--Whether to write the ism of the selected start topology to a sql database or not-->
     <param name="storeStartTopologyISM" value="false"/>
    
     <!--The amount of valid and invalid test sets that are generated-->
@@ -55,7 +55,7 @@
     <!--Which evaluator is used. evaluatorId == 0 => Tester. -->
     <param name="evaluatorId" value="0"/>
 
-    <!--Wether the test for false negatives should be run or not. False negatives have no influence on the rating of topologies -->
+    <!--Whether the test for false negatives should be run or not. False negatives have no influence on the rating of topologies -->
     <param name="testForFalseNegatives" value="false"/>
 
     <!--Which cost function is used. costFunctionId == 0 => WeightedSum. -->
@@ -69,7 +69,7 @@
 
     <!--Which topologyGenerator is used:
 		-topologyGenerator == 0 => TopologyGeneratorPaper.
-		-topologyGenerator == 0 => TopologyGeneratorNaive.
+		-topologyGenerator == 1 => TopologyGeneratorNaive.
     -->
     <param name="topologyGeneratorId" value="0"/>
 
@@ -85,7 +85,7 @@
     -->
     <param name="optimizationAlgorithmId" value="2"/>
 
-    <!--Wether hillclimbing contiunes if a new evaluation result is exactly equal to the best evaluation result (hillClimbingStrictMonoton == false) or wether a true improvement is requiered and the optimization stops if both are equal (hillClimbingStrictMonoton == true). -->
+    <!--Whether hillclimbing continues if a new evaluation result is exactly equal to the best evaluation result (hillClimbingStrictMonoton == false) or whether a true improvement is requiered and the optimization stops if both are equal (hillClimbingStrictMonoton == true). -->
     <param name="hillClimbingStrictMonoton" value="true"/>
 
     <!--The maximum tree height that is accepted by HeightChecker. -->
@@ -112,7 +112,7 @@
     <!--How many topologies are visited in simulated annealing before the temperature is updated (e.g. if (topologiesVisited % repetitionsBeforeUpdated == 0) updatTemperature) -->
     <param name="repetitionsBeforeUpdated" value="8"/>
 
-    <!--Used to initalise currentAcceptableCostDelta in RecordHunt. If new_cost is the cost we want to check and lowest_cost is the lowest cost we have encountered so far, then new_cost is accepted if: new_cost <= (1 + currentAcceptableCostDelta) * lowest_cost -->
+    <!--Used to initialise currentAcceptableCostDelta in RecordHunt. If new_cost is the cost we want to check and lowest_cost is the lowest cost we have encountered so far, then new_cost is accepted if: new_cost <= (1 + currentAcceptableCostDelta) * lowest_cost -->
     <param name="initialAcceptableCostDelta" value="0.02"/>
 
     <!--Used to update the current costDifferenceDelta-->

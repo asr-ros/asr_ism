@@ -27,7 +27,7 @@
 	1 = APORater: consider appearance, position and orientation for the rating. The score/rate is in [0,1]. -->
     <param name="raterType" value="0"/>
 
-    <!-- Whether to store input object configurations as xml files on disk or not. Disabled in active recognition mode.-->
+    <!-- Whether to store input object configurations as xml files on disk or not. Disabled if SceneConfigurator is Auto Processing.-->
     <param name="enableStoringConfigToXml" value="false"/>
     
     <!--Path to the folder where the configuration xml files should be stored. If left empty, no configuration files are created.-->

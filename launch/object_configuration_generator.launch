@@ -8,9 +8,6 @@
 
     <!--Load some parameters trainer, recognizer and fake_data_publisher have in common.-->
     <rosparam file="$(find asr_ism)/launch/helpers/visualization.yaml"/>
-
-    <!--Ros topic on which the objects are visualized-->
-    <param name="object_configuration_visualization_topic" value="object_configuration"/>
     
     <!--Which pattern should be loaded-->
     <!--e.g. [pattern1, pattern2, ..., patternN]
