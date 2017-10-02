@@ -6,13 +6,13 @@
     <param name ="outputDataPath" value=""/>
 
     <!--Load some parameters recorder, trainer, combinatorialTrainer and recognizer have in common.-->
-    <rosparam file="$(find asr_ism)/launch/helpers/sqlitedb.yaml"/>
+    <rosparam file="$(find asr_ism)/param/sqlitedb.yaml"/>
 
     <!--Load some parameters trainer, combinatorialTrainer and recognizer have in common.-->
-    <rosparam file="$(find asr_ism)/launch/helpers/visualization.yaml"/>
+    <rosparam file="$(find asr_ism)/param/visualization.yaml"/>
 
     <!--Load some parameters combinatorialTrainer and recognizer have in common.-->
-    <rosparam file="$(find asr_ism)/launch/helpers/sensitivity.yaml"/>
+    <rosparam file="$(find asr_ism)/param/sensitivity.yaml"/>
     
     <!-- This parameter influences the neighbourhood of a topology T. If swapRelations == true, then topologies that can be created by swaping one relation that is part of that topology T with one that is not are considered neighbours of T.
     This parameter only effects TopologyGeneratorPaper. -->

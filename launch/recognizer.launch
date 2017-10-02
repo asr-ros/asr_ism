@@ -8,16 +8,16 @@
     <param name="ignoreTypes" value="false"/>
 
     <!--Load some parameters recorder, trainer, optedTrainer and recognizer have in common.-->
-    <rosparam file="$(find asr_ism)/launch/helpers/sqlitedb.yaml"/>
+    <rosparam file="$(find asr_ism)/param/sqlitedb.yaml"/>
 
     <!--Load some parameters trainer, optedTrainer and recognizer have in common.-->
-    <rosparam file="$(find asr_ism)/launch/helpers/visualization.yaml"/>
+    <rosparam file="$(find asr_ism)/param/visualization.yaml"/>
 
     <!--Load some parameters record and recognizer have in common.-->
-    <rosparam file="$(find asr_ism)/launch/helpers/capturing.yaml"/>
+    <rosparam file="$(find asr_ism)/param/capturing.yaml"/>
     
     <!--Load some parameters record and recognizer have in common.-->
-    <rosparam file="$(find asr_ism)/launch/helpers/sensitivity.yaml"/>
+    <rosparam file="$(find asr_ism)/param/sensitivity.yaml"/>
     
      <!-- The maximum number of results per pattern which you want to receive from the recognizer. -->
     <param name="maxNumberOfResultsPerPattern" value="1"/>

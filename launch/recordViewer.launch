@@ -6,10 +6,10 @@
 	<param name="sceneName" type="str" value=""/>
   
     <!--Load db file and base frame for coordinate transformations.-->
-    <rosparam file="$(find asr_ism)/launch/helpers/sqlitedb.yaml"/>
+    <rosparam file="$(find asr_ism)/param/sqlitedb.yaml"/>
     
     <!--Load visualization topic.-->
-    <rosparam file="$(find asr_ism)/launch/helpers/visualization.yaml"/>
+    <rosparam file="$(find asr_ism)/param/visualization.yaml"/>
             
   </node>
 </launch>

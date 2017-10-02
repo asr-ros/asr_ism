@@ -4,10 +4,10 @@
   <node name="object_configuration_generator" pkg="asr_ism" type="object_configuration_generator" output="screen">
 
     <!--Load some parameters recorder, trainer, recognizer and fake_data_publisher have in common.-->
-    <rosparam file="$(find asr_ism)/launch/helpers/sqlitedb.yaml"/>
+    <rosparam file="$(find asr_ism)/param/sqlitedb.yaml"/>
 
     <!--Load some parameters trainer, recognizer and fake_data_publisher have in common.-->
-    <rosparam file="$(find asr_ism)/launch/helpers/visualization.yaml"/>
+    <rosparam file="$(find asr_ism)/param/visualization.yaml"/>
     
     <!--Which pattern should be loaded-->
     <!--e.g. [pattern1, pattern2, ..., patternN]

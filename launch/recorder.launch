@@ -6,12 +6,12 @@
     <param name="sceneName" value="test"/>
 
     <!--Load some parameters recorder, trainer and recognizer have in common.-->
-    <rosparam file="$(find asr_ism)/launch/helpers/sqlitedb.yaml"/>
+    <rosparam file="$(find asr_ism)/param/sqlitedb.yaml"/>
 
     <!--Load some parameters record and recognizer have in common.-->
-    <rosparam file="$(find asr_ism)/launch/helpers/capturing.yaml"/>
+    <rosparam file="$(find asr_ism)/param/capturing.yaml"/>
 
     <!--Load some parameters for visualization.-->
-    <rosparam file="$(find asr_ism)/launch/helpers/visualization.yaml"/>
+    <rosparam file="$(find asr_ism)/param/visualization.yaml"/>
   </node>
 </launch>

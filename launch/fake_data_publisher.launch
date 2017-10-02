@@ -3,13 +3,13 @@
   <node name="fake_data_publisher" pkg="asr_ism" type="fake_data_publisher" output="screen">
 
      <!--Load some parameters recorder, trainer, recognizer and fake_data_publisher have in common.-->
-    <rosparam file="$(find asr_ism)/launch/helpers/sqlitedb.yaml"/>
+    <rosparam file="$(find asr_ism)/param/sqlitedb.yaml"/>
 
     <!--Load some parameters trainer, recognizer and fake_data_publisher have in common.-->
-    <rosparam file="$(find asr_ism)/launch/helpers/visualization.yaml"/>
+    <rosparam file="$(find asr_ism)/param/visualization.yaml"/>
 
     <!--Load some parameters record and recognizer have in common.-->
-    <rosparam file="$(find asr_ism)/launch/helpers/capturing.yaml"/>
+    <rosparam file="$(find asr_ism)/param/capturing.yaml"/>
     
     <!--This option enables to publish just a specific pattern or a portion of the recorded object sets in the database to be published-->
     <!--<param name="usedPattern" value="1" />

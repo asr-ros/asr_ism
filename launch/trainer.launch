@@ -26,7 +26,7 @@
     <param name="maxAngleDeviation" value="45"/>
 
     <!--Load some parameters recorder, trainer and recognizer have in common.-->
-    <rosparam file="$(find asr_ism)/launch/helpers/sqlitedb.yaml"/>
+    <rosparam file="$(find asr_ism)/param/sqlitedb.yaml"/>
 
   </node>
 </launch>

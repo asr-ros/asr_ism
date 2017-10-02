@@ -2,7 +2,7 @@
   
 #Sqlite DB, containing recorded object configurations that are transformed to model object configurations in an ism tree during ism learning in this node.
 #uncomment the following line and add your desired database PATH and DBNAME.
-#dbfilename: PATH/DBNAME.sqlite
+dbfilename: /home/SMBAD/students/fmarek/Dokumente/TrainingResults/TrainingResults/gedeck_ende_rotated_normalized_map.sqlite
 
 #Frame to which incoming object messages are transformed. Used to unify their coordinate frames.
 baseFrame: /map
