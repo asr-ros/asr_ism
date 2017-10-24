@@ -69,57 +69,71 @@ public:
     mTableHelper = ISM::TableHelperPtr (new ISM::TableHelper (dbfilename));
     sleep(1);
     mObjectSets = getDbEntries();
-    // get lastSet and check firstSet
-    if (mNh.hasParam("usedPattern")) {
-        // sql tables start with 1 while std::vector starts with 0, so we reduce it by 1 and say it is a std::vector index/pos
-        mNh.param<int>("usedPattern", usedPattern, 1);
-        usedPattern --;
 
-        int numberOfSets = mObjectSets[usedPattern].size();
-        int numberOfPatterns = mObjectSets.size();
+    int numberOfPatterns = mObjectSets.size();
+    if (numberOfPatterns <= 0)
+    {
+        ROS_INFO_STREAM("Database doesn't contain any pattern!");
+        exit(0);
+    }
+
+    if (mNh.hasParam("usedPattern")) {
+        mNh.param<int>("usedPattern", usedPattern, 1);
+        if (usedPattern < 1)
+        {
+            usedPattern = 1;
+            ROS_INFO_STREAM("usedPattern is smaller than 1, setting it to 1 now.");
+        }
+        else if (usedPattern > numberOfPatterns)
+        {
+            usedPattern = numberOfPatterns;
+            ROS_INFO_STREAM("usedPattern is greater than " << (numberOfPatterns) << ", setting it to " << numberOfPatterns << " now.");
+        }
+        int numberOfSets = mObjectSets[usedPattern-1].size();
+        if (numberOfSets <= 0)
+        {
+            ROS_INFO_STREAM("Pattern doesn't contain any sets!");
+            exit(0);
+        }
 
         mNh.param<int>("firstUsedSet", firstUsedSet, 1);
-        firstUsedSet --;
+        if (firstUsedSet < 1)
+        {
+            firstUsedSet = 1;
+            ROS_INFO_STREAM("firstUsedSet is smaller than 1, setting it to 1 now.");
+        }
+        else if (firstUsedSet > numberOfSets)
+        {
+            firstUsedSet = numberOfSets ;
+            ROS_INFO_STREAM("firstUsedSet is greater than numberOfSets(" << (numberOfSets) << "), setting it to " << firstUsedSet << " now.");
+        }
 
         mNh.param<int>("lastUsedSet", lastUsedSet, numberOfSets);
-        lastUsedSet --;
-
-        if (firstUsedSet < 0) {
-            firstUsedSet = 0;
-            ROS_INFO_STREAM("firstUsedSet is smaller than 0, setting it to 0 now.");
+        if (lastUsedSet < 1)
+        {
+            lastUsedSet = 1;
+            ROS_INFO_STREAM("lastUsedSet is smaller than 1, setting it to 1 now.");
         }
-        if (lastUsedSet < 0) {
-            lastUsedSet = 0;
-            ROS_INFO_STREAM("lastUsedSet is smaller than 0, setting it to 0 now.");
-        }
-        // including firstUsedSet
-        if (firstUsedSet >= numberOfSets) {
-            firstUsedSet = numberOfSets - 1;
-            ROS_INFO_STREAM("firstUsedSet is greater than numberOfSets(" << (numberOfSets-1) << "), setting it to " << firstUsedSet << " now.");
-        }
-        // including lastUsedSet
-        if (lastUsedSet > numberOfSets) {
+        else if (lastUsedSet > numberOfSets)
+        {
             lastUsedSet = numberOfSets;
             ROS_INFO_STREAM("lastUsedSet is greater than numberOfSets(" << numberOfSets << "), setting it to " << lastUsedSet << " now.");
         }
-        if (firstUsedSet > lastUsedSet) {
-            unsigned int bfr = lastUsedSet;
-            lastUsedSet = firstUsedSet;
-            firstUsedSet = bfr;
-            ROS_INFO_STREAM("firstUsedSet is greater than lastUsedSet.");
+
+        if (firstUsedSet > lastUsedSet)
+        {
+            ROS_INFO_STREAM("firstUsedSet is greater than lastUsedSet!");
+            exit(0);
         }
-        if (usedPattern < 0) {
-            usedPattern = 0;
-            ROS_INFO_STREAM("usedPattern is smaller than 0.");
-        }
-        if (usedPattern >= numberOfPatterns) {
-            usedPattern = numberOfPatterns - 1;
-            ROS_INFO_STREAM("usedPattern is greater than " << (numberOfPatterns-1));
-        }
-        patternIter = usedPattern;
-        setIter = firstUsedSet;
-        ROS_INFO_STREAM("using pattern " << (usedPattern+1));
-        ROS_INFO_STREAM("and sets from " << (firstUsedSet+1) << " to " << lastUsedSet << " (including last)");
+
+        std::cout << std::endl; //just for seperation of the terminal output
+        ROS_INFO_STREAM("using pattern " << (usedPattern));
+        ROS_INFO_STREAM("and sets from " << (firstUsedSet) << " to " << lastUsedSet << " (including last)");
+
+        // sql tables start with 1 while std::vector starts with 0, so we reduce it by 1 and say it is a std::vector index/pos
+        patternIter = --usedPattern;
+        setIter = --firstUsedSet;
+        lastUsedSet--;
     }
 
     mDataPub = mNh.advertise<asr_msgs::AsrObject> (objectTopic, 5, this);
@@ -142,7 +156,7 @@ public:
     {
       mPublishInterval = 1;
     }
-    ROS_INFO_STREAM("PublishInterval: " << mPublishInterval);
+    ROS_INFO_STREAM("PublishInterval (capture_interval): " << mPublishInterval);
 
     if (!mNh.getParam("dbfilename", pDbfilename))
     {
@@ -310,26 +324,12 @@ void timerCallback(const ros::TimerEvent& timerEvent)
     mObjectModelVisualizer->drawObjectModels(mObjectSets[patternIter][setIter]->objects);
 
     setIter++;
-    if (usedPattern < 0) {
-        if (setIter >= patternSize)
-        {
-            patternIter++;
-            setIter = 0;
-            ROS_INFO_STREAM("Pattern " << patternIter << " completed\n");
-            if (patternIter >= patterns)
-            {
-                patternIter = 0;
-                setIter = 0;
-                ROS_INFO_STREAM("Done. Restarting.\n\n");
-            }
-        }
-    } else {
-        // we only use a part of all set
-        if (setIter >= (unsigned int) lastUsedSet) {
-            setIter = firstUsedSet;
-            ROS_INFO_STREAM("Pattern " << patternIter << " completed\n");
-            ROS_INFO_STREAM("Done. Restarting.\n\n");
-        }
+    // we only use a part of all set
+    if (setIter > (unsigned int) lastUsedSet)
+    {
+        setIter = firstUsedSet;
+        ROS_INFO_STREAM("Pattern " << patternIter << " completed\n");
+        ROS_INFO_STREAM("Done. Restarting.\n\n");
     }
 }
 };
