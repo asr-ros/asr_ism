@@ -126,7 +126,7 @@ public:
             exit(0);
         }
 
-        std::cout << std::endl; //just for seperation of the terminal output
+        std::cout << std::endl;
         ROS_INFO_STREAM("using pattern " << (usedPattern));
         ROS_INFO_STREAM("and sets from " << (firstUsedSet) << " to " << lastUsedSet << " (including last)");
 
@@ -140,6 +140,8 @@ public:
     mVisualizationPub = mNh.advertise<visualization_msgs::MarkerArray>("fake_data_publisher_visualization", 100);
     mTimer = mNh.createTimer(ros::Duration(mPublishInterval), &Fake_data_publisher::timerCallback, this, false, true);
     mObjectModelVisualizer = new VIZ::ObjectModelVisualizerRVIZ(mVisualizationPub, mBaseFrame, "", 0.0);
+
+    std::cout << std::endl;
   }
   virtual ~Fake_data_publisher(){};
   
@@ -227,6 +229,7 @@ private:
    */
   std::vector<std::vector<ISM::ObjectSetPtr>> getDbEntries ()
    {  
+     std::cout << std::endl;
      ROS_INFO_STREAM("Extracting Patterns");
      std::vector<std::string> patternNames = mTableHelper->getRecordedPatternNames();
      ROS_INFO_STREAM("There are/is " << patternNames.size() << " pattern(s)");
@@ -324,14 +327,33 @@ void timerCallback(const ros::TimerEvent& timerEvent)
     mObjectModelVisualizer->drawObjectModels(mObjectSets[patternIter][setIter]->objects);
 
     setIter++;
-    // we only use a part of all set
-    if (setIter > (unsigned int) lastUsedSet)
+    if (usedPattern < 0)
     {
-        setIter = firstUsedSet;
-        ROS_INFO_STREAM("Pattern " << patternIter << " completed\n");
-        ROS_INFO_STREAM("Done. Restarting.\n\n");
+        if (setIter >= patternSize)
+        {
+            patternIter++;
+            setIter = 0;
+            ROS_INFO_STREAM("Pattern " << patternIter << " completed\n");
+            if (patternIter >= patterns)
+            {
+                patternIter = 0;
+                setIter = 0;
+                ROS_INFO_STREAM("Done. Restarting.\n\n");
+            }
+        }
+    }
+    else
+    {
+        // we only use a part of all set
+        if (setIter > (unsigned int) lastUsedSet)
+        {
+            setIter = firstUsedSet;
+            ROS_INFO_STREAM("Pattern " << patternIter + 1 << " completed\n");
+            ROS_INFO_STREAM("Done. Restarting.\n\n");
+        }
     }
 }
+
 };
 
 
