@@ -52,6 +52,14 @@ public:
 		ISM::CombinatorialTrainerParameters params;
 		getCombinatorialTrainerParameters(mNh, &params);
 
+        ISM::TableHelperPtr table_helper = ISM::TableHelperPtr(new ISM::TableHelper(params.general.dbfilename));
+        if(!table_helper->recordDataExists())
+        {
+            ISM::printRed("The database \"" + params.general.dbfilename + "\" doesn't contain any recordings!\n");
+            exit(0);
+        }
+
+
 		ISM::CombinatorialTrainerPtr combinatorialTrainer = ISM::CombinatorialTrainerPtr(new ISM::CombinatorialTrainer(params));
 		combinatorialTrainer->learn();
 	}

@@ -35,16 +35,9 @@ class Recorder
         Recorder() : nh_("~")
         {
             std::string db_filename;
-            getNodeParameters(db_filename);
+            getNodeParameters(db_filename);            
 
-            if (db_filename != "")
-            {
-                ism_recorder_ = ISM::RecorderPtr(new ISM::Recorder(db_filename));
-            }
-            else
-            {
-                throw std::runtime_error("No db specified");
-            }
+            ism_recorder_ = ISM::RecorderPtr(new ISM::Recorder(db_filename));
         }
 
 
@@ -75,7 +68,8 @@ class Recorder
 
             if (!nh_.getParam("dbfilename", db_filename))
             {
-                db_filename = "record.sqlite";
+                db_filename = "/tmp/record.sqlite";
+                ISM::printGreen("No database path specified. Default path \"" + db_filename + "\" will be used.\n");
             }
             ROS_INFO_STREAM("dbfilename: " << db_filename);
         }

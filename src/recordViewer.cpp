@@ -39,6 +39,11 @@ class RecordViewer
 
             getNodeParameters(db_filename, base_frame, scene_name, visualization_topic);
             ISM::TableHelperPtr table_helper = ISM::TableHelperPtr(new ISM::TableHelper(db_filename));
+            if(!table_helper->recordDataExists())
+            {
+                ISM::printRed("The database \"" + db_filename + "\" doesn't contain any recordings!\n");
+                exit(0);
+            }
 
             std::vector<ISM::ObjectSetPtr> recordedObjectSets;
 

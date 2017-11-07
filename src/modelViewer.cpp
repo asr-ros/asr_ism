@@ -43,6 +43,16 @@ class ModelViewer
 
             getNodeParameters(db_filename, base_frame, visualization_topic);
             table_helper_ = ISM::TableHelperPtr(new ISM::TableHelper(db_filename));
+            if(!table_helper_->recordDataExists())
+            {
+                ISM::printRed("The database \"" + db_filename + "\" doesn't contain any recordings!\n");
+                exit(0);
+            }
+            if(!table_helper_->modelDataExists())
+            {
+                ISM::printRed("The database \"" + db_filename + "\" doesn't contain a model!\n");
+                exit(0);
+            }
 
             initObjectTracks();
             initVotes();

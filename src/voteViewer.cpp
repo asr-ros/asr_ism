@@ -46,6 +46,11 @@ class VoteViewer
             std::string visualization_topic;
             getNodeParameters(db_filename, base_frame, visualization_topic);
             ISM::TableHelperPtr table_helper(new ISM::TableHelper(db_filename));
+            if(!table_helper->modelDataExists())
+            {
+                ISM::printRed("The database \"" + db_filename + "\" doesn't contain a model!\n");
+                exit(0);
+            }
 
             init(table_helper);
 
@@ -79,6 +84,12 @@ class VoteViewer
         void loadObjectsFromXML() {
             objects_.clear();
             object_to_votes_.clear();
+
+            if(config_file_path_ == "")
+            {
+                ISM::printRed("Couldn't load object constellation from xml, because the parameter \"config_file_path\" is not specified!\n");
+                exit(0);
+            }
 
             std::string xml_path = config_file_path_;
             ROS_DEBUG_STREAM("Path to objects.xml: " << xml_path);

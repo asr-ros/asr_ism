@@ -38,6 +38,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 #include <ISM/utility/TableHelper.hpp>
 #include <ISM/common_type/ObjectSet.hpp>
 #include <ISM/common_type/RecordedPattern.hpp>
+#include <ISM/utility/Util.hpp>
 
 //Local includes
 #include "ism_helper.hpp"
@@ -67,15 +68,16 @@ public:
     //Extract cli parameters of ros node for being used in this program.
     getNodeParameters(objectTopic, dbfilename, visualizationTopic);
     mTableHelper = ISM::TableHelperPtr (new ISM::TableHelper (dbfilename));
+    if(!mTableHelper->recordDataExists())
+    {
+        ISM::printRed("The database \"" + dbfilename + "\" doesn't contain any recordings!\n");
+        exit(0);
+    }
+
     sleep(1);
     mObjectSets = getDbEntries();
 
     int numberOfPatterns = mObjectSets.size();
-    if (numberOfPatterns <= 0)
-    {
-        ROS_INFO_STREAM("Database doesn't contain any pattern!");
-        exit(0);
-    }
 
     if (mNh.hasParam("usedPattern")) {
         mNh.param<int>("usedPattern", usedPattern, 1);

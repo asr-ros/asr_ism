@@ -41,6 +41,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 #include <ISM/heuristic_trainer/Trainer.hpp>
 #include <ISM/heuristic_trainer/DataCollector.hpp>
 #include <ISM/heuristic_trainer/ManuallyDefPseudoHeuristic.hpp>
+#include <ISM/utility/Util.hpp>
 
 //Local includes
 #include "ism_helper.hpp"
@@ -77,10 +78,19 @@ public:
     		usePredefinedRefs, preDefRefListFile);
 
     ISM::DataCollector::setCollect(true);
-    if (dbfilename != "") {
-      mTrainer = boost::shared_ptr<ISM::Trainer>(new ISM::Trainer(dbfilename, dropOldModelTables));
-    } else {
-      mTrainer = boost::shared_ptr<ISM::Trainer>(new ISM::Trainer());
+    if (dbfilename != "")
+    {
+        ISM::TableHelperPtr table_helper = ISM::TableHelperPtr(new ISM::TableHelper(dbfilename));
+        if(!table_helper->recordDataExists())
+        {
+            ISM::printRed("The database \"" + dbfilename + "\" doesn't contain any recordings!\n");
+            exit(0);
+        }
+        mTrainer = boost::shared_ptr<ISM::Trainer>(new ISM::Trainer(dbfilename, dropOldModelTables));
+    }
+    else
+    {
+        throw std::runtime_error("No db specified");
     }
 
     if(useUserDefCluster)

@@ -19,9 +19,9 @@ enableRotationMode: 1
 # Defines the rotation frame. The rotation only takes place if baseFrame == rotationFrame.
 rotationFrame: /map
 # Defines the rotation object.
-#rotationObjectType:
+rotationObjectType: ""
 # Please write number in quotation marks to e.g. preserve leading zeros.
-#rotationObjectId: ""
+rotationObjectId: ""
 
 ## Additional parameters for scene configurator
 #The rate (Hz) in which the keyboard should be polled for keyboard input (Used for keyboard commands during runtime).

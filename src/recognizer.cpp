@@ -98,8 +98,16 @@ class Recognizer
             //Extract cli parameters of ros node for being used in this program.
             getNodeParameters(visualization_topic);
 
+            ISM::TableHelperPtr table_helper;
             if (db_filename_ != "")
             {
+                table_helper = ISM::TableHelperPtr(new ISM::TableHelper(db_filename_));
+                if(!table_helper->modelDataExists())
+                {
+                    ISM::printRed("The database \"" + db_filename_ + "\" doesn't contain a model!\n");
+                    exit(0);
+                }
+
                 ism_recognizer_ = ISM::RecognizerPtr(new ISM::Recognizer(db_filename_, bin_size_, max_projection_angle_deviation_, false, rater_type_));
             }
             else
@@ -117,7 +125,6 @@ class Recognizer
             object_model_visualizer_ = new VIZ::ObjectModelVisualizerRVIZ(visualization_publisher_, base_frame_, "", 0);
 
             // init pose prediction stuff
-            ISM::TableHelperPtr table_helper = ISM::TableHelperPtr(new ISM::TableHelper(db_filename_));
             object_type_to_ressource_path_map_ = table_helper->getRessourcePaths();
 
             pose_predictor_ = new pose_prediction_ism::ShortestPath(db_filename_);

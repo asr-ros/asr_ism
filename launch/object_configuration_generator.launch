@@ -10,7 +10,7 @@
     <rosparam file="$(find asr_ism)/param/visualization.yaml"/>
     
     <!--Which pattern should be loaded-->
-    <!--e.g. [pattern1, pattern2, ..., patternN]
+    <!--e.g. [pattern1, pattern2, ..., patternN]-->
     <rosparam param = "object_configuration_pattern_names">[]</rosparam>
     
     <!--Where the output xml file should be written-->

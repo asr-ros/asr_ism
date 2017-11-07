@@ -75,6 +75,12 @@ public:
         getNodeParameters(patternNames, configFilePath);
 
         tableHandler = ISM::TableHelperPtr(new ISM::TableHelper(mDbFilename));
+        if(!tableHandler->recordDataExists())
+        {
+            ISM::printRed("The database \"" + mDbFilename + "\" doesn't contain any recordings!\n");
+            exit(0);
+        }
+
         init(patternNames);
 
         if (configFilePath.size() != 0)
