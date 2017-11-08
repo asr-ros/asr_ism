@@ -455,7 +455,7 @@ private:
                  << "\tpress \"e\"\tchange into edit mode\n";
 
         ISM::printYellow(commands.str() + "\n");
-        ISM::printBlue("\tNOW AT OBJECT " + trackAndPoses[objectCounter].first->type + "\n" );
+        ISM::printBlue("\tNOW AT OBJECT " + trackAndPoses[objectCounter].first->type + " " + trackAndPoses[objectCounter].first->observedId + "\n" );
 
         return;
     }
@@ -508,11 +508,11 @@ private:
         {
         case KEY_NEXT_OBJECT:
             nextObject();
-            ISM::printBlue("\tNOW AT OBJECT " + trackAndPoses[objectCounter].first->type + "\n" );
+            ISM::printBlue("\tNOW AT OBJECT " + trackAndPoses[objectCounter].first->type + " " + trackAndPoses[objectCounter].first->observedId + "\n" );
             break;
         case KEY_PREV_OBJECT:
             prevObject();
-            ISM::printBlue("\tNOW AT OBJECT " + trackAndPoses[objectCounter].first->type + "\n" );
+            ISM::printBlue("\tNOW AT OBJECT " + trackAndPoses[objectCounter].first->type + " " + trackAndPoses[objectCounter].first->observedId + "\n" );
             break;
         case KEY_PREV_POSE:
             prevPose();
