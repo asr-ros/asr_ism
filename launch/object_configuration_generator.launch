@@ -9,14 +9,14 @@
     <!--Load some parameters trainer, recognizer and fake_data_publisher have in common.-->
     <rosparam file="$(find asr_ism)/param/visualization.yaml"/>
     
-    <!--Which pattern should be loaded-->
+    <!--Which pattern should be loaded from database-->
     <!--e.g. [pattern1, pattern2, ..., patternN]-->
     <rosparam param = "object_configuration_pattern_names">[]</rosparam>
     
     <!--Where the output xml file should be written-->
     <param name="output_file_path" value=""/>
     
-     <!--The path to a previously created configuration. Only use this if you want to reload that configuration-->
+     <!--The path to a previously created configuration. Only use this if you want to reload that configuration. Data from given database will be ignored-->
     <param name="config_file_path" value=""/>
 
   </node>
