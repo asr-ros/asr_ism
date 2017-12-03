@@ -296,6 +296,7 @@ private:
      */
     void initFromDatabase(std::vector<std::string>& patternNames)
     {
+        bool gotAnyObjects = false;
         std::vector<ISM::ObjectSetPtr> objectsInPattern;
         for(unsigned int i = 0; i < patternNames.size(); ++i)
         {
@@ -307,9 +308,22 @@ private:
                 ROS_ERROR_STREAM(ss.str());
                 continue;
             }
+            else
+            {
+                ISM::printGreen("Load pattern \"" + patternName + "\" from database.\n");
+            }
 
             std::vector<ISM::ObjectSetPtr> objects = tableHandler->getRecordedPattern(patternName)->objectSets;
             objectsInPattern.insert(objectsInPattern.end(), objects.begin(), objects.end());
+
+            gotAnyObjects = gotAnyObjects || !objects.empty();
+        }
+        if (!gotAnyObjects)
+        {
+            std::stringstream ss;
+            ss << "Couldn't load any data! Check your database or selected pattern." << std::endl;
+            ROS_ERROR_STREAM(ss.str());
+            throw std::runtime_error(ss.str());
         }
         ISM::TracksPtr tracksInPattern = ISM::TracksPtr(new ISM::Tracks(objectsInPattern));      
 
