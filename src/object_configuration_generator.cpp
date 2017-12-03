@@ -29,7 +29,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 #include <asr_ism_visualizations/VizHelperRVIZ.hpp>
 
 #include <ISM/utility/TableHelper.hpp>
-#include <ISM/utility/viz_helper.hpp>
 #include <ISM/common_type/Pose.hpp>
 #include <ISM/common_type/Track.hpp>
 #include <ISM/common_type/Tracks.hpp>
