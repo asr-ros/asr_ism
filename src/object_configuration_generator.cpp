@@ -262,7 +262,7 @@ private:
                 }
                 else
                 {                    
-                    std_msgs::ColorRGBA color = VIZ::VizHelperRVIZ::createColorRGBA(ISM::getColorOfObject(pair.first));
+                    std_msgs::ColorRGBA color = VIZ::VizHelperRVIZ::getColorOfObject(pair.first);
                     markerArray.markers.push_back(VIZ::VizHelperRVIZ::createMeshMarker(pair.second[poseCounters[i]], baseFrame, markerNamespace, markerCount, color, markerLifetime, path));
                 }
                 markerCount++;
