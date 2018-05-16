@@ -162,12 +162,6 @@ private:
         }
         ROS_INFO_STREAM("visualization_topic: " << visualizationTopic);
 
-        if (!nh.getParam("markerLifetime", markerLifetime))
-        {
-            markerLifetime = 0;
-        }
-        ROS_INFO_STREAM("markerLifetime: " << markerLifetime);
-
         if (!nh.getParam("output_file_path", output_file_path) || output_file_path.empty())
         {
             std::stringstream ss;
@@ -898,7 +892,7 @@ private:
     std::string visualizationTopic;
     std::string markerNamespace = "object_configuration";
 
-    double markerLifetime;
+    const double markerLifetime = 0.0;
 
     unsigned int objectCounter = 0;
     std::vector<unsigned int> poseCounters;

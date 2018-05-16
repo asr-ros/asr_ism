@@ -268,7 +268,7 @@ int main(int argc, char **argv) {
   Trainer* tr = new Trainer();
   tr->train();
 
-  //Let this node run as long as we want training results being published to RViz.
-  ros::spin();
+  ISM::printGreen("Training is done!\n\n");
 
+  delete tr;
 };
