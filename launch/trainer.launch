@@ -1,4 +1,4 @@
-<!--Learning of isms on recorded object sets stored in a database is performed here. Learning results are stored in the same database file as model object configurations. @author Pascal Meissner, @version See SVN.-->
+<!--Learning of isms on recorded object sets stored in a database is performed here. Learning results are stored in the same database file as model object configurations. -->
 <launch>
   <node name="trainer" pkg="asr_ism" type="trainer" output="screen">
 

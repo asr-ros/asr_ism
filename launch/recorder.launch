@@ -1,4 +1,4 @@
-<!--Accumulates incoming Asr Object (ROS) messages during scene demonstration to object configurations. Object configurations (sets) are saved to sqlite database at regular time intervals. @author Pascal Meissner, @version See SVN.-->
+<!--Accumulates incoming Asr Object (ROS) messages during scene demonstration to object configurations. Object configurations (sets) are saved to sqlite database at regular time intervals. -->
 <launch>
   <node name="recorder" pkg="asr_ism" type="recorder" output="screen">
 

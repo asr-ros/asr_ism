@@ -1,4 +1,4 @@
-#Parameters related to gathering estimations captured by object localizers. @author Pascal Meissner, @version See SVN.
+#Parameters related to gathering estimations captured by object localizers.
 
 #Where does object recognizer input come from?
 objectTopic: /stereo/objects

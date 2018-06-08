@@ -1,4 +1,4 @@
-#Parameters related to visualization of training resp. recognition results. @author Pascal Meissner, @version See SVN.
+#Parameters related to visualization of training resp. recognition results.
 
 #Where to show our visualization results.
 visualization_topic: /ism_results_visualization

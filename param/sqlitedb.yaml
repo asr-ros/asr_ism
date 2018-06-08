@@ -1,4 +1,4 @@
-#These parameters are related to the content of the sqlite data base. @author Pascal Meissner, @version See SVN.
+#These parameters are related to the content of the sqlite data base.
   
 #Sqlite DB, containing recorded object configurations that are transformed to model object configurations in an ism tree during ism learning in this node.
 #uncomment the following line and add your desired database PATH and DBNAME.

@@ -1,4 +1,4 @@
-<!--Launches a publisher which publishes AsrObject messages in order to to "feed" the recognizer with data, even if no cameras are used. Visualizes pubished data via RViz. This file wip. @author Fabian Hanselmann, @version See SVN.-->
+<!--Launches a publisher which publishes AsrObject messages in order to to "feed" the recognizer with data, even if no cameras are used. Visualizes pubished data via RViz. This file wip. -->
 <launch>
   <node name="fake_data_publisher" pkg="asr_ism" type="fake_data_publisher" output="screen">
 

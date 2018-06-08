@@ -1,4 +1,4 @@
-<!--Launches recognition system that processes incoming AsrObject messages in order to recognize scenes represented in an sqlite database. Visualizes recognition result via RViz. @author Pascal Meissner, @version See SVN.-->
+<!--Launches recognition system that processes incoming AsrObject messages in order to recognize scenes represented in an sqlite database. Visualizes recognition result via RViz. -->
 <launch>
   <node name="recognizer" pkg="asr_ism" type="recognizer" output="screen">
 
