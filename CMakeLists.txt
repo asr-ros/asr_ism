@@ -9,6 +9,7 @@ endif(COMMAND cmake_policy)
 #set(CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS}")
 add_definitions(-Wall -std=gnu++0x -ggdb)
 
+find_package(PCL REQUIRED)
 find_package(Boost REQUIRED)
 find_package(Eigen3 REQUIRED)
 
